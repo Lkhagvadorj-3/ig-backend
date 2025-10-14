@@ -1,0 +1,14 @@
+import express from "express";
+import { createpost } from "../../controller/post/createpost.js";
+import { medposts } from "../../controller/post/medpost.js";
+import { authMiddleware } from "../../authMiddleware/authMiddleware.js";
+import { personpost } from "../../controller/post/personPost.js";
+import { togglePostLike } from "../../controller/post/togglepostlike.js";
+import { viewUser } from "../../controller/post/userPost.js";
+const postrouter = express.Router();
+postrouter.post("/createPost", authMiddleware, createpost);
+postrouter.get("/profile", authMiddleware, personpost);
+postrouter.get("/posts", authMiddleware, medposts);
+postrouter.post("/toggle-like/:postId", authMiddleware, togglePostLike);
+postrouter.get("/otheruser/:userId", authMiddleware, viewUser);
+export default postrouter;
