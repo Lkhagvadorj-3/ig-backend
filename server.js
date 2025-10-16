@@ -7,6 +7,7 @@ import { compare, hash } from "bcrypt";
 import userrouter from "./router/user/user.route.js";
 import postrouter from "./router/post/post.route.js";
 import jwt from "jsonwebtoken";
+import commentrouter from "./router/comment/comment.route.js";
 
 const port = 5555;
 const connectToMongoDB = async () => {
@@ -22,6 +23,8 @@ app.use(cors());
 app.use("/", userrouter);
 
 app.use("/posts", postrouter);
+
+app.use("/comment", commentrouter);
 app.get("/", async (_req, res) => {
   const user = await userModel.find();
   const JWT_SECRET = "medkuu shuu";
