@@ -8,12 +8,13 @@ import userrouter from "./router/user/user.route.js";
 import postrouter from "./router/post/post.route.js";
 import jwt from "jsonwebtoken";
 import commentrouter from "./router/comment/comment.route.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const port = 5555;
+const mongoId = process.env.mongoDBid;
 const connectToMongoDB = async () => {
-  await mongoose.connect(
-    "mongodb+srv://Lkhagvadorj3:Ush08321018@lkhagvadorj.gfvxldo.mongodb.net/"
-  );
+  await mongoose.connect(mongoId);
 };
 connectToMongoDB();
 const app = express();
@@ -27,7 +28,7 @@ app.use("/posts", postrouter);
 app.use("/comment", commentrouter);
 app.get("/", async (_req, res) => {
   const user = await userModel.find();
-  const JWT_SECRET = "medkuu shuu";
+  const JWT_SECRET = process.env.JWT_SECRET;
   const accessToken = jwt.sign(
     {
       data: user,
